@@ -32,39 +32,33 @@ console.log(root);
 
 
 function quiz(path){
-  var userResponse;
-  try{
-      var question = path.question;
-      if (path.animal){
+    var userResponse;
+    var question = path.question;
+    if (path.animal){
         userResponse = prompt('The answer could be ' + path.animal + ' Is it? [Type "y" or "n"]');
         if (userResponse == 'y') {
           alert('I guessed it. Press quiz to play again.');
           return true;
         }
-      } else {
-          question = question + ' [Type "y" or "n"]';
-          userResponse = prompt(question);
-      }
+    } else {
+        question = question + ' [Type "y" or "n"]';
+        userResponse = prompt(question);
+    }
 
-      if (userResponse == 'y'){
+    if (userResponse == 'y'){
         if(path.yes){
           quiz(path.yes)
         }else{
           addAnswer(path,'yes');
         }
-        
-      } else{
+
+    } else{
         if(path.no){
           quiz(path.no)
         }else{
           addAnswer(path,'no');
         }
-      }
-  }
-  catch(err){
-    console.log('debug', path);
-    addAnswer(path);
-  }
+    }
 }
 
 function addAnswer(path,nextNode){
