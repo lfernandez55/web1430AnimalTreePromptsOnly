@@ -23,6 +23,9 @@ var nodeCounterFunc = function (){
 var root = new node('Is it a mammal',null,null,null);
 var mid = new node('Is it furry',null,null,null);
 root.yes = mid;
+root.yes.yes = new node('Does it bark?',null,null,null);
+root.no = new node('Does it have scales?',null,null,null);
+root.no.no = new node('Does it have feathers?',null,null,null);
 
 //show the seeded binary tree in the console:
 console.log(root);
@@ -95,16 +98,6 @@ function launchTreeWalk(){
   treeWalk(root);
 }
 
-//shows the tree with a simple console.  you can drill down in the console to see the nested nodes/objects
-function launchTreeWalk1(){
-  console.log(root);
-}
-
-//shows the tree WITH the parent nodes
-function launchTreeWalk2(){
-  treeWalk2(null,root);
-}
-
 function treeWalk(root) {
   console.log('Unique id: ' + root.uniqueId + ' Question: ' + root.question + " Animal: " + root.animal);
 
@@ -115,6 +108,41 @@ function treeWalk(root) {
     this.treeWalk(root.no);
   }
 }
+
+function launchTreeWalkUsingWhileLoop(){
+    treeWalkUsingWhileLoop(root)
+}
+
+function treeWalkUsingWhileLoop(node){
+    var nodesToVisit = [];
+    nodesToVisit.push(node); // put the root node 
+    var currentNode;
+    while (nodesToVisit.length > 0){
+        currentNode = nodesToVisit.pop();
+        console.log('Unique id: ' + currentNode.uniqueId + ' Question: ' + currentNode.question + " Animal: " + currentNode.animal);
+        if (currentNode.no){
+            nodesToVisit.push(currentNode.no);
+        } 
+        if (currentNode.yes){
+            nodesToVisit.push(currentNode.yes);
+        }        
+
+    }
+}
+
+//shows the tree with a simple console.  you can drill down in the console to see the nested nodes/objects
+function launchTreeWalk1(){
+  console.log(root);
+}
+
+
+
+//shows the tree WITH the parent nodes
+function launchTreeWalk2(){
+  treeWalk2(null,root);
+}
+
+
 
 function treeWalk2(parentNode, root) {
     
